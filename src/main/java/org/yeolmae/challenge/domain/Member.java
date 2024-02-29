@@ -19,7 +19,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "roleSet")
+//@ToString(exclude = "roleSet")
 public class Member {
 //
     @Id
@@ -29,15 +29,19 @@ public class Member {
     private String email;
     private String pw;
     private String nickname;
-    private String role;
+
+    @Enumerated(EnumType.ORDINAL)
+    private MemberRole memberRole;
+
 
     //    @ElementCollection(fetch = FetchType.LAZY)
 //    @Builder.Default
 //    private Set<Level> level = new HashSet<>();
-//
-    @ElementCollection(fetch = FetchType.LAZY)
-    @Builder.Default
-    private Set<MemberRole> roleSet = new HashSet<>();
+
+//    @ElementCollection(fetch = FetchType.LAZY)
+//    @Builder.Default
+//    private Set<MemberRole> roleSet = new HashSet<>();
+
     public void changePassword(String pw) {
         this.pw = pw;
     }

@@ -1,11 +1,13 @@
 package org.yeolmae.challenge.config.auth;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.yeolmae.challenge.domain.Member;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 // 시큐리티가 /login 주소 요청이 오면 낚아채서 로그인 진행
 // 로그인을 진행이 완료가 되면 시큐리티 session을 만들어 줌.(Security ContextHolder)
@@ -28,16 +30,16 @@ public class PrincipalDetails implements UserDetails {
     @Override // 해당 member의 권한 리턴하는 곳 //타입이 Collection 으로 정해져 있어서 member.getRole() 로 반환X => 타입 정해줌.
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        Collection<GrantedAuthority> collect = new ArrayList<>();
+//        Collection<GrantedAuthority> collect = new ArrayList<>();
+//
+//        collect.add(new GrantedAuthority() {
+//            @Override //String 리턴 가능
+//            public String getAuthority() {
+//                return member.getRole();
+//            }
+//        });
 
-        collect.add(new GrantedAuthority() {
-            @Override //String 리턴 가능
-            public String getAuthority() {
-                return member.getRole();
-            }
-        });
-
-        return collect;
+        return List.of(new SimpleGrantedAuthority("USER"));
     }
 
     @Override

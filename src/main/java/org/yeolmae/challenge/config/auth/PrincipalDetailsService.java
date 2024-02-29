@@ -2,12 +2,18 @@ package org.yeolmae.challenge.config.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.yeolmae.challenge.domain.Member;
 import org.yeolmae.challenge.repository.MemberRepository;
+
+import java.util.Collection;
+import java.util.Collections;
 
 // 시큐리티 설정에서 loginProcessionUrl("/login");
 // /login 요청이 오면 자동으로 UserDetailsService 타입으로 IoC되어 있는 loadUserByUsername 함수가 실행
@@ -37,5 +43,18 @@ public class PrincipalDetailsService implements UserDetailsService {
             return new PrincipalDetails(memberEntity);
         }
         return null;
+    }
+
+    private UserDetails createUserDetails(Member member) {
+
+        String role = member.getMemberRole().value();
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role);
+
+        return new User(
+                member.getEmail(),
+                member.getPw(),
+                Collections.singleton(grantedAuthority)
+        );
+
     }
 }
