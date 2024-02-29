@@ -1,9 +1,9 @@
 package org.yeolmae.challenge.domain;
 
 public enum MemberRole {
-    USER("USER"), ADMIN("ADMIN");
+    USER("ROLE_USER"), ADMIN("ROLE_ADMIN");
 
-    String role;
+    private String role;
 
     MemberRole(String role) {
         this.role = role;

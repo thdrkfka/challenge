@@ -34,17 +34,27 @@ public class MemberJoinController {
     // 실제로 회원 가입 이뤄짐
     @PostMapping("/join")
     public String join(Member member, @RequestParam(name = "adminRole", defaultValue = "false") boolean adminRole) {
+
         System.out.println(member);
-//        member.setRole("ROLE_USER");
-        memberRepository.save(member); //회원가입 됨. 비밀번호 :1234 => 시큐리티로 로그인 할 수 없음. 이유? 패스워드 암호화X
-        // 패스워드 암호화
+
+        memberRepository.save(member);
+
         String rawPw = member.getPw();
         String encPw = bCryptPasswordEncoder.encode(rawPw);
         member.setPw(encPw);
 
-        member.setMemberRole(adminRole ? MemberRole.ADMIN:MemberRole.USER);
+//        // 회원 객체 생성
+//        Member member = new Member();
+//        member.setEmail(email);
+//        member.setPw(bCryptPasswordEncoder.encode(pw)); // 패스워드 암호화
+//        member.setNickname(nickname);
+        member.setMemberRole(adminRole ? MemberRole.ADMIN : MemberRole.USER);
+
+        // 회원 저장
         memberRepository.save(member);
-        return "redirect:/loginForm";//정상적으로 회원가입이 이뤄지면 redirect 함.
+
+        return "redirect:/loginForm";
+
     }
 
 //    @GetMapping("/logout")

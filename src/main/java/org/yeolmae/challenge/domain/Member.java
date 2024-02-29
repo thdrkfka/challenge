@@ -1,11 +1,10 @@
 package org.yeolmae.challenge.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.HashSet;
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,12 +24,20 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(updatable = false, unique = true)
+
+    @Column(updatable = false, nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String pw;
+
+    @Column(nullable = false)
     private String nickname;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    private int level;
+
+    @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 
 

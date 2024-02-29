@@ -17,7 +17,7 @@ import java.util.List;
 // Security Session 영역(세션 정보 저장)
 // => (session에 들어갈 수 있는 객체)Authentication
 // => (Authentication 안에 들어있는 Member 정보 타입)UserDetails(=PrincipalDetails)
-//
+
 public class PrincipalDetails implements UserDetails {
 
     // Member 정보 // 컴포지션
@@ -30,16 +30,10 @@ public class PrincipalDetails implements UserDetails {
     @Override // 해당 member의 권한 리턴하는 곳 //타입이 Collection 으로 정해져 있어서 member.getRole() 로 반환X => 타입 정해줌.
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-//        Collection<GrantedAuthority> collect = new ArrayList<>();
-//
-//        collect.add(new GrantedAuthority() {
-//            @Override //String 리턴 가능
-//            public String getAuthority() {
-//                return member.getRole();
-//            }
-//        });
+        List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
+        roles.add(new SimpleGrantedAuthority(member.getMemberRole().toString()));
 
-        return List.of(new SimpleGrantedAuthority("USER"));
+        return roles;
     }
 
     @Override
