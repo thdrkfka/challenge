@@ -18,7 +18,7 @@ import java.util.List;
 // => (session에 들어갈 수 있는 객체)Authentication
 // => (Authentication 안에 들어있는 Member 정보 타입)UserDetails(=PrincipalDetails)
 
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails { //인증과 인가 관련 핵심적인 클래스
 
     // Member 정보 // 컴포지션
     private Member member;

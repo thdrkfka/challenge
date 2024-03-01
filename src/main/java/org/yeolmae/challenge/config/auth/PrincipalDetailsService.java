@@ -17,9 +17,12 @@ import org.yeolmae.challenge.repository.MemberRepository;
 //@RequiredArgsConstructor
 public class PrincipalDetailsService implements UserDetailsService {
 
+    private final MemberRepository memberRepository;
 
     @Autowired
-    private MemberRepository memberRepository;
+    public PrincipalDetailsService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     // 로그인 구현 // email로 사용자 정보 조회
     // 시큐리티 session(내부 Authentication(내부 UserDetails))
@@ -36,6 +39,10 @@ public class PrincipalDetailsService implements UserDetailsService {
                 .build();
 
         return userDetails;
+    }
+
+}
+
 
 //        log.info("🐱‍🚀 loadUserByUsername() 메소드 시작");
 //
@@ -51,7 +58,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 //        }
 //        log.info("🐱‍🚀 곧 에러를 발생 시킬 거임");
 //        throw new NullPointerException(email + "는 데이터베이스에 없는 데이터입니다.");
-    }
+
 
 //    private UserDetails createUserDetails(Member member) {
 //
@@ -65,4 +72,4 @@ public class PrincipalDetailsService implements UserDetailsService {
 //        );
 //
 //    }
-}
+

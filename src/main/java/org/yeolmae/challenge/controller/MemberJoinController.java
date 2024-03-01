@@ -35,10 +35,6 @@ public class MemberJoinController {
     @PostMapping("/join")
     public String join(Member member, @RequestParam(name = "adminRole", defaultValue = "false") boolean adminRole) {
 
-        System.out.println(member);
-
-        memberRepository.save(member);
-
         String rawPw = member.getPw();
         String encPw = bCryptPasswordEncoder.encode(rawPw);
         member.setPw(encPw);

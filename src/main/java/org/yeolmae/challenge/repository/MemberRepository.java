@@ -1,12 +1,9 @@
 package org.yeolmae.challenge.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.yeolmae.challenge.domain.Member;
 
 import java.util.Optional;
-
-//import java.util.Optional;
 
 //CRUD 함수 사용
 public interface MemberRepository extends JpaRepository<Member, Integer> {
