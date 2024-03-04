@@ -8,7 +8,9 @@
 <h1>회원가입 페이지</h1>
 <hr/>
 <form action="/join" method="post">
-    <input type="email" name="email" placeholder="Email"/><br/>
+    <input type="email" id="email" name="email" placeholder="Email"/><br/>
+    <input class="btn btn-outline-primary btn-sm idCheck mx-1" type="button" id="emailOverlay" onclick="emailCheck()" value="중복 체크"/>
+<!--    <button onclick="checkEmail()">중복 확인</button><p id="resultMessage"></p>-->
     <input type="password" name="pw" placeholder="Password"/><br/>
     <input type="text" name="nickname" placeholder="Nickname"/><br/>
     <label>
@@ -16,5 +18,41 @@
     </label>
     <button>회원가입</button>
 </form>
+<script>
+    function emailCheck(){
+        const email = $("#email").val();
+        if (email === ""){
+            alert("이메일을 입력해주세요. 필수항목입니다.");
+            $("#email").focus();
+            return false;
+        }
+        $.ajax({
+            type: "get",
+            url: "/joinForm",
+            data: {"email" : email},
+            dataType: "JSON",
+
+            success: function (result) {
+                if (result.result === "0"){
+                    if (confirm("이 이메일을 사용 가능합니다.")){
+                        emailOverlapCheck = 1;
+                        $("#email").attr("readonly", true);
+                        $("#emailOverlay").attr("disabled", true);
+                    }
+                    return false;
+                }else if (result.result === "1"){
+                    alert("이미 사용중인 이메일입니다.");
+                    $("#email").focus();
+                }else {
+                    alert("success이지만 result 값이 undefined 잘못됨.")
+                }
+            },
+            error: function (request, status, error){
+                alert("ajax 실행 실패");
+                alert("code: "+request.status + "\n" + "error: "+error);
+            }
+        });
+    }
+</script>
 </body>
 </html>

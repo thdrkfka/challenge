@@ -1,6 +1,7 @@
 package org.yeolmae.challenge.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.yeolmae.challenge.domain.Member;
 
 import java.util.Optional;
@@ -16,4 +17,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 //    // email로 사용자 정보 가져옴.
     Optional<Member> findMemberByEmail(String email);
 
+    //유효성 검사-중복체크
+    boolean existsByEmail(String email);
 }

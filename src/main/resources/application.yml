@@ -21,3 +21,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL57Dialect
         show_sql: true
+
+  servlet:
+    multipart:
+      enabled: true
+      location: C:\\upload

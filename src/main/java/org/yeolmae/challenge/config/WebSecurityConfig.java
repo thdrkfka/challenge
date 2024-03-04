@@ -65,9 +65,9 @@ public class WebSecurityConfig {
 //                .userDetailsService(userDetailsService));
 //                .authenticationSuccessHandler(loginSuccessHandler()));//자동로그인 성공 시, 액션에 대해 정의해주는 handler
 
-//        // logout 설정
-//        http.logout((logout) -> logout
-//                .logoutSuccessUrl("/loginForm"));
+        // logout 설정
+        http.logout((logout) -> logout
+                .logoutSuccessUrl("/loginForm"));
 
         //csrf 비활성화
         http.csrf((csrf) -> csrf.disable());
@@ -91,7 +91,7 @@ public class WebSecurityConfig {
         PersistentTokenBasedRememberMeServices rememberMeServices
                 = new PersistentTokenBasedRememberMeServices("rememberMeKey", new PrincipalDetailsService(memberRepository), tokenRepository);
         rememberMeServices.setParameter("remember-me");
-        rememberMeServices.setAlwaysRemember(true);
+        rememberMeServices.setAlwaysRemember(false);
 
         return rememberMeServices;
     }
